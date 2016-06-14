@@ -1,0 +1,16 @@
+{
+  "name": "SUI-Angular2-Modal",
+  "description" : "Semantic UI modal implementation in pure JavaScript.",
+  "version": "0.0.1",
+  "scripts": {
+    "tsc": "tsc",
+    "typings": "typings install"
+  },
+  "devDependencies": {
+    "@angular/core": "^2.0.0-rc.1",
+    "rxjs": "5.0.0-beta.6",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.5",
+    "zone.js": "^0.6.12"
+  }
+}
