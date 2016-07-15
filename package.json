@@ -1,7 +1,7 @@
 {
   "name": "SUI-Angular2-Modal",
-  "description" : "Semantic UI modal implementation in pure JavaScript.",
-  "version": "0.0.1",
+  "description": "Semantic UI modal implementation in pure JavaScript.",
+  "version": "0.0.2",
   "scripts": {
     "tsc": "tsc",
     "typings": "typings install"
