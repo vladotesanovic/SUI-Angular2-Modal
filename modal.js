@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var SUIModalComponent = (function () {
     function SUIModalComponent() {
         this.animation = "scale";
+        this.dimmer = true;
         this._class = "";
         this.close = new core_1.EventEmitter();
         this._visibility = false;
@@ -19,6 +20,9 @@ var SUIModalComponent = (function () {
     }
     SUIModalComponent.prototype.showModal = function () {
         var _this = this;
+        if (this._visibility) {
+            return;
+        }
         setTimeout(function () {
             _this.marginTop = "-" + String(_this.modal.nativeElement.clientHeight / 2);
         }, 0);
@@ -26,6 +30,9 @@ var SUIModalComponent = (function () {
     };
     SUIModalComponent.prototype.closeModal = function () {
         var _this = this;
+        if (!this._visibility) {
+            return;
+        }
         this._closing = true;
         setTimeout(function () {
             _this._visibility = false;
@@ -42,8 +49,12 @@ var SUIModalComponent = (function () {
     ], SUIModalComponent.prototype, "modal", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], SUIModalComponent.prototype, "animation", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], SUIModalComponent.prototype, "dimmer", void 0);
     __decorate([
         core_1.Input("class"), 
         __metadata('design:type', Object)
@@ -55,7 +66,7 @@ var SUIModalComponent = (function () {
     SUIModalComponent = __decorate([
         core_1.Component({
             selector: "sui-modal",
-            template: "<div (click)=\"closeModal()\" class=\"ui dimmer modals page transition\" [ngClass]=\"{'active visible animating in fade': _visibility }\">\n    <div class=\"ui modal {{_class}} transition {{animation}}\" \n        [style.margin-top.px]=\"marginTop\"\n        [ngClass]=\"{'active visible animating in': _visibility, 'active animating out': _closing}\"\n     #modal>\n      <i class=\"close icon\" (click)=\"closeModal()\"></i>\n      <div class=\"header\">\n        <ng-content select=\"header\"></ng-content>\n      </div>\n      <div class=\"content\">\n        <div class=\"description\">\n            <ng-content select=\"description\"></ng-content>\n        </div>\n      </div>\n      <div class=\"actions\">\n        <ng-content select=\"actions\"></ng-content>\n      </div>\n    </div>\n</div>"
+            template: "<div [ngClass]=\"{'ui dimmer modals page transition': dimmer,'active visible animating in fade': _visibility && dimmer}\">\n    <div class=\"ui modal {{_class}} transition {{animation}}\" \n        [style.margin-top.px]=\"marginTop\"\n        [ngClass]=\"{'active visible animating in': _visibility, 'active animating out': _closing}\"\n     #modal>\n      <i class=\"close icon\" (click)=\"closeModal()\"></i>\n      <div class=\"header\">\n        <ng-content select=\"header\"></ng-content>\n      </div>\n      <div class=\"content\">\n        <div class=\"description\">\n            <ng-content select=\"description\"></ng-content>\n        </div>\n      </div>\n      <div class=\"actions\">\n        <ng-content select=\"actions\"></ng-content>\n      </div>\n    </div>\n</div>"
         }), 
         __metadata('design:paramtypes', [])
     ], SUIModalComponent);

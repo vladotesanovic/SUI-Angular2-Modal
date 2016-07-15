@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from "@
 
 @Component({
     selector: "sui-modal",
-    template: `<div (click)="closeModal()" class="ui dimmer modals page transition" [ngClass]="{'active visible animating in fade': _visibility }">
+    template: `<div [ngClass]="{'ui dimmer modals page transition': dimmer,'active visible animating in fade': _visibility && dimmer}">
     <div class="ui modal {{_class}} transition {{animation}}" 
         [style.margin-top.px]="marginTop"
         [ngClass]="{'active visible animating in': _visibility, 'active animating out': _closing}"
@@ -24,7 +24,8 @@ import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from "@
 })
 export class SUIModalComponent {
     @ViewChild("modal") modal: ElementRef;
-    @Input() animation = "scale";
+    @Input() animation: string = "scale";
+    @Input() dimmer: boolean = true;
     @Input("class") _class = "";
     @Output("close") close: EventEmitter<boolean> = new EventEmitter<boolean>();
     marginTop: string;
@@ -32,6 +33,10 @@ export class SUIModalComponent {
     _closing: boolean = false;
 
     showModal() {
+        if (this._visibility) {
+            return;
+        }
+
         setTimeout(() => {
             this.marginTop = "-" + String(this.modal.nativeElement.clientHeight / 2);
         }, 0);
@@ -40,7 +45,12 @@ export class SUIModalComponent {
     }
 
     closeModal() {
+        if (!this._visibility) {
+            return;
+        }
+
         this._closing = true;
+        
         setTimeout(() => {
             this._visibility = false;
             setTimeout(() => {

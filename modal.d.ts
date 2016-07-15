@@ -2,6 +2,7 @@ import { ElementRef, EventEmitter } from "@angular/core";
 export declare class SUIModalComponent {
     modal: ElementRef;
     animation: string;
+    dimmer: boolean;
     _class: string;
     close: EventEmitter<boolean>;
     marginTop: string;
